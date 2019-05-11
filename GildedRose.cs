@@ -8,43 +8,47 @@ namespace csharp
     public class GildedRose
     {
         IList<Item> Items;
+        private readonly Dictionary<String, Action<Item>> UpdateMethods;
+        private readonly Action<Item> DefaultUpdateMethod;
+        
         public GildedRose(IList<Item> Items)
         {
             this.Items = Items;
+            UpdateMethods = new Dictionary<string, Action<Item>>
+            {
+                {"Sulfuras, Hand of Ragnaros", updateSulfuras},
+                {"Aged Brie", updateAgedBrie},
+                {"Conjured Mana Cake", updateConjuredItem},
+                {"Backstage passes to a TAFKAL80ETC concert", updateBackstagePass}
+            };
+            DefaultUpdateMethod = updateNormalItem;
         }
 
         public void UpdateQuality()
         {
             foreach (var item in Items)
             {
-                switch (item.Name)
-                {
-                    case "Sulfuras, Hand of Ragnaros":
-                        break;
-                    case "Backstage passes to a TAFKAL80ETC concert":
-                        updateBackstagePass(item);
-                        break;
-                    case "Aged Brie":
-                        updateSimpleItem(item, 1);
-                        break;
-                    case "Conjured Mana Cake":
-                        updateSimpleItem(item, -2);
-                        break;
-                    default:
-                        updateSimpleItem(item, -1);
-                        break;
-                }
+               UpdateItem(item); 
             }
         }
 
-        private void updateSimpleItem(Item item, int smallIncrement)
+        private void UpdateItem(Item item)
         {
-            var largeIncrement = 2 * smallIncrement;
-            item.Quality += item.SellIn > 0 ? smallIncrement : largeIncrement;
-            CheckQualityLimits(item);
-            item.SellIn -= 1;
+            if (UpdateMethods.ContainsKey(item.Name))
+            {
+                UpdateMethods[item.Name](item);
+            }
+            else
+            {
+                DefaultUpdateMethod(item);
+            }
         }
 
+        private void updateSulfuras(Item item)
+        {
+            
+        }
+        
         private void updateBackstagePass(Item item)
         {
             item.Quality++;
@@ -68,6 +72,35 @@ namespace csharp
             item.SellIn -= 1;
         }
 
+        private void updateAgedBrie(Item item)
+        {
+            updateSimpleItem(item, 1);
+        }
+
+        private void updateConjuredItem(Item item)
+        {
+            updateSimpleItem(item, -2);
+        }
+
+        private void updateNormalItem(Item item)
+        {
+            updateSimpleItem(item, -1);
+        }
+
+        private void updateSimpleItem(Item item, int increment)
+        {
+            if (item.SellIn > 0)
+            {
+                item.Quality += increment;
+            }
+            else
+            {
+                item.Quality += 2 * increment;
+            }
+            item.SellIn -= 1;
+            CheckQualityLimits(item);
+        }
+        
         private void CheckQualityLimits(Item item)
         {
             item.Quality = Math.Max(item.Quality, 0);
