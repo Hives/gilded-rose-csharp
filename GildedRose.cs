@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq.Expressions;
 
 namespace csharp
@@ -21,16 +22,19 @@ namespace csharp
                     switch (item.Name)
                     {
                         case "Backstage passes to a TAFKAL80ETC concert":
-                            item.Quality = item.Quality + 1;
-
-                            if (item.SellIn < 11)
+                            if (item.SellIn > 10)
                             {
                                 item.Quality = item.Quality + 1;
                             }
 
-                            if (item.SellIn < 6)
+                            if (item.SellIn > 5 && item.SellIn <= 10)
                             {
-                                item.Quality = item.Quality + 1;
+                                item.Quality = item.Quality + 2;
+                            }
+
+                            if (item.SellIn <= 5)
+                            {
+                                item.Quality = item.Quality + 3;
                             }
 
                             break;
