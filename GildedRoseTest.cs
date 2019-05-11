@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace csharp
 {
     [TestFixture]
-    public class GuildedRoseTests
+    public class GildedRoseTests
     {
         [Test, Description("An item's name should be unchanged")]
         [Category("Normal item tests")]
@@ -248,6 +248,16 @@ namespace csharp
             Assert.AreEqual(5, Items[0].Quality);
         }
         
+        [Test, Description("Sulfuras' SellIn doesn't change")]
+        [Category("Sulfuras tests")]
+        public void UpdateSulfurasSellInDoesntChange()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 5, Quality = 5 } };
+            GildedRose app = new GildedRose(Items);
+            app.UpdateQuality();
+            Assert.AreEqual(5, Items[0].SellIn);
+        }
+        
         
         [Test, Description("An backstage pass's name should be unchanged")]
         [Category("Backstage pass tests")]
@@ -357,6 +367,16 @@ namespace csharp
             GildedRose app = new GildedRose(Items);
             app.UpdateQuality();
             Assert.AreEqual(50, Items[0].Quality);
+        }
+        
+        [Test, Description("A backstage pass's SellIn decreases by 1")]
+        [Category("Backstage pass tests")]
+        public void UpdateSellInOfBackstagePass()
+        {
+            IList<Item> Items = new List<Item> { new Item { Name = "BackstagePass", SellIn = 5, Quality = 5 } };
+            GildedRose app = new GildedRose(Items);
+            app.UpdateQuality();
+            Assert.AreEqual(4, Items[0].SellIn);
         }
     }
 }
