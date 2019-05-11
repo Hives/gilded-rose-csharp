@@ -47,19 +47,16 @@ namespace csharp
 
         private void updateBackstagePass(Item item)
         {
-            if (item.SellIn > 10)
+            item.Quality++;
+            
+            if (item.SellIn <= 10)
             {
-                item.Quality += 1;
+                item.Quality++;
             }
 
-            if (item.SellIn > 5 && item.SellIn <= 10)
+            if (item.SellIn <= 5)
             {
-                item.Quality += 2;
-            }
-
-            if (item.SellIn > 0 && item.SellIn <= 5)
-            {
-                item.Quality += 3;
+                item.Quality++;
             }
 
             if (item.SellIn <= 0)
