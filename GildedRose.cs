@@ -32,34 +32,23 @@ namespace csharp
                                 item.Quality += 2;
                             }
 
-                            if (item.SellIn <= 5)
+                            if (item.Quality > 0 && item.SellIn <= 5)
                             {
                                 item.Quality += 3;
+                            }
+                            
+                            if (item.Quality <= 0)
+                            {
+                                item.Quality = 0;
                             }
 
                             break;
                         case "Aged Brie":
-                            item.Quality += 1;
+                            item.Quality += item.SellIn > 0 ? 1 : 2;
                             break;
                         default:
-                            item.Quality -= 1;
+                            item.Quality -= item.SellIn > 0 ? 1 : 2;
                             break;
-                    }
-
-                    if (item.SellIn <= 0)
-                    {
-                        switch (item.Name)
-                        {
-                            case "Backstage passes to a TAFKAL80ETC concert":
-                                item.Quality = 0;
-                                break;
-                            case "Aged Brie":
-                                item.Quality += 1;
-                                break;
-                            default:
-                                item.Quality -= 1;
-                                break;
-                        }
                     }
                     
                     item.SellIn -= 1;
