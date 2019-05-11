@@ -32,6 +32,7 @@ Refactorings:
     x += 3
   }
   ```
+- Actually I changed my mind about that last one and put it back how it was
 
 
 I notice that some refactorings I did when I did this in JS are breaking the tests I've written in C#! In other words, my tests in JS must not have been covering certain situations. Reflection - it's harder to be sure that your tests give good coverage if you write them after the fact. When TDD-ing you only write the minimum code to pass a test, which means you can be more sure that the tests accurately cover the functionality of your program.
