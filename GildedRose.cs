@@ -27,6 +27,9 @@ namespace csharp
                     case "Aged Brie":
                         updateSimpleItem(item, 1);
                         break;
+                    case "Conjured Mana Cake":
+                        updateSimpleItem(item, -2);
+                        break;
                     default:
                         updateSimpleItem(item, -1);
                         break;

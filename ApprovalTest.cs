@@ -12,7 +12,7 @@ namespace csharp
         [Test]
         public void ThirtyDays()
         {
-            var lines = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "/../../ThirtyDays.txt");
+            var lines = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "/../../ThirtyDaysWithConjuredManaCake.txt");
 
             StringBuilder fakeoutput = new StringBuilder();
             Console.SetOut(new StringWriter(fakeoutput));
