@@ -37,11 +37,12 @@ namespace csharp
             }
         }
 
-        private void updateSimpleItem(Item item, int increment)
+        private void updateSimpleItem(Item item, int smallIncrement)
         {
-            item.Quality += item.SellIn > 0 ? increment : 2 * increment;
-            item.SellIn -= 1;
+            var largeIncrement = 2 * smallIncrement;
+            item.Quality += item.SellIn > 0 ? smallIncrement : largeIncrement;
             CheckQualityLimits(item);
+            item.SellIn -= 1;
         }
 
         private void updateBackstagePass(Item item)
@@ -65,8 +66,9 @@ namespace csharp
             {
                 item.Quality = 0;
             }
-            item.SellIn -= 1;
+            
             CheckQualityLimits(item);
+            item.SellIn -= 1;
         }
 
         private void CheckQualityLimits(Item item)
