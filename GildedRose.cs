@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace csharp
 {
@@ -18,34 +19,22 @@ namespace csharp
                 {
                     if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                     {
-                        if (item.Quality > 0)
-                        {
-                            item.Quality = item.Quality - 1;
-                        }
+                        item.Quality = item.Quality - 1;
                     }
                     else
                     {
-                        if (item.Quality < 50)
+                        item.Quality = item.Quality + 1;
+
+                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
                         {
-                            item.Quality = item.Quality + 1;
-
-                            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                            if (item.SellIn < 11)
                             {
-                                if (item.SellIn < 11)
-                                {
-                                    if (item.Quality < 50)
-                                    {
-                                        item.Quality = item.Quality + 1;
-                                    }
-                                }
+                                item.Quality = item.Quality + 1;
+                            }
 
-                                if (item.SellIn < 6)
-                                {
-                                    if (item.Quality < 50)
-                                    {
-                                        item.Quality = item.Quality + 1;
-                                    }
-                                }
+                            if (item.SellIn < 6)
+                            {
+                                item.Quality = item.Quality + 1;
                             }
                         }
                     }
@@ -54,28 +43,23 @@ namespace csharp
                     {
                         switch (item.Name)
                         {
-                            case "Aged Brie":
-                                if (item.Quality < 50)
-                                {
-                                    item.Quality = item.Quality + 1;
-                                }
-                                break;
                             case "Backstage passes to a TAFKAL80ETC concert":
-                                {
-                                    item.Quality = 0;
-                                }
+                                item.Quality = 0;
+                                break;
+                            case "Aged Brie":
+                                item.Quality = item.Quality + 1;
                                 break;
                             default:
-                                if (item.Quality > 0)
-                                {
-                                    item.Quality = item.Quality - 1;
-                                }
-
+                                item.Quality = item.Quality - 1;
                                 break;
                         }
                     }
                     
                     item.SellIn = item.SellIn - 1;
+
+                    item.Quality = Math.Max(item.Quality, 0);
+                    item.Quality = Math.Min(item.Quality, 50);
+
                 }
             }
         }
