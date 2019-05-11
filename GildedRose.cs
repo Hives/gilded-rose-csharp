@@ -50,22 +50,20 @@ namespace csharp
                         }
                     }
 
-                    item.SellIn = item.SellIn - 1;
-
-                    if (item.SellIn < 0)
+                    if (item.SellIn < 1)
                     {
                         if (item.Name != "Aged Brie")
                         {
-                            if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                            {
+                                item.Quality = 0;
+                            }
+                            else
                             {
                                 if (item.Quality > 0)
                                 {
                                     item.Quality = item.Quality - 1;
                                 }
-                            }
-                            else
-                            {
-                                item.Quality = item.Quality - item.Quality;
                             }
                         }
                         else
@@ -76,6 +74,8 @@ namespace csharp
                             }
                         }
                     }
+                    
+                    item.SellIn = item.SellIn - 1;
                 }
             }
         }
