@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
 using NUnit.Framework;
 
@@ -11,7 +12,7 @@ namespace csharp
         [Test]
         public void ThirtyDays()
         {
-            var lines = File.ReadAllLines("ThirtyDays.txt");
+            var lines = File.ReadAllLines(AppDomain.CurrentDomain.BaseDirectory + "/../../ThirtyDays.txt");
 
             StringBuilder fakeoutput = new StringBuilder();
             Console.SetOut(new StringWriter(fakeoutput));
@@ -23,6 +24,7 @@ namespace csharp
             var outputLines = output.Split('\n');
             for(var i = 0; i<Math.Min(lines.Length, outputLines.Length); i++) 
             {
+                Console.WriteLine(lines[i]);
                 Assert.AreEqual(lines[i], outputLines[i]);
             }
         }
