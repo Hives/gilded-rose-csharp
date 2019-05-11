@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 
 namespace csharp
 {
@@ -17,16 +18,11 @@ namespace csharp
             {
                 if (item.Name != "Sulfuras, Hand of Ragnaros")
                 {
-                    if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                    switch (item.Name)
                     {
-                        item.Quality = item.Quality - 1;
-                    }
-                    else
-                    {
-                        item.Quality = item.Quality + 1;
+                        case "Backstage passes to a TAFKAL80ETC concert":
+                            item.Quality = item.Quality + 1;
 
-                        if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
                             if (item.SellIn < 11)
                             {
                                 item.Quality = item.Quality + 1;
@@ -36,7 +32,14 @@ namespace csharp
                             {
                                 item.Quality = item.Quality + 1;
                             }
-                        }
+
+                            break;
+                        case "Aged Brie":
+                            item.Quality = item.Quality + 1;
+                            break;
+                        default:
+                            item.Quality = item.Quality - 1;
+                            break;
                     }
 
                     if (item.SellIn <= 0)
