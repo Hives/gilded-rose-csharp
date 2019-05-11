@@ -24,25 +24,25 @@ namespace csharp
                         case "Backstage passes to a TAFKAL80ETC concert":
                             if (item.SellIn > 10)
                             {
-                                item.Quality = item.Quality + 1;
+                                item.Quality += 1;
                             }
 
                             if (item.SellIn > 5 && item.SellIn <= 10)
                             {
-                                item.Quality = item.Quality + 2;
+                                item.Quality += 2;
                             }
 
                             if (item.SellIn <= 5)
                             {
-                                item.Quality = item.Quality + 3;
+                                item.Quality += 3;
                             }
 
                             break;
                         case "Aged Brie":
-                            item.Quality = item.Quality + 1;
+                            item.Quality += 1;
                             break;
                         default:
-                            item.Quality = item.Quality - 1;
+                            item.Quality -= 1;
                             break;
                     }
 
@@ -54,15 +54,15 @@ namespace csharp
                                 item.Quality = 0;
                                 break;
                             case "Aged Brie":
-                                item.Quality = item.Quality + 1;
+                                item.Quality += 1;
                                 break;
                             default:
-                                item.Quality = item.Quality - 1;
+                                item.Quality -= 1;
                                 break;
                         }
                     }
                     
-                    item.SellIn = item.SellIn - 1;
+                    item.SellIn -= 1;
 
                     item.Quality = Math.Max(item.Quality, 0);
                     item.Quality = Math.Min(item.Quality, 50);
